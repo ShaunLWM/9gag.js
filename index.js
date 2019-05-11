@@ -10,7 +10,7 @@ let self = module.exports = {
             },
         })
     },
-    async getType({ type = "hot", cursor = "" }) {
+    async getType({ type = "hot", cursor = "", simplified = false }) {
         let url = `${baseUrl}v1/group-posts/group/default/type/${type}`;
         if (cursor.length > 0) {
             url += `?${cursor}`
@@ -27,7 +27,10 @@ let self = module.exports = {
         }
 
         return {
-            posts: json["data"]["posts"],
+            posts: (!simplified) ? json["data"]["posts"] : json["data"]["posts"].map(p => {
+                let { id, title, type, upVoteCount, downVoteCount, creationTs, images, commentsCount } = p;
+                return { id, title, type, upVoteCount, downVoteCount, creationTs, images, commentsCount };
+            }),
             cursor: json["data"]["nextCursor"]
         };
     },

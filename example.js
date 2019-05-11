@@ -15,4 +15,7 @@ const NineGag = require("./index"); // const NineGag = require("9gag.js");
     // Getting page 2 of specified post's comments
     let commentsPage2 = await NineGag.getComments({ id: hot["posts"][0]["id"], orderKey: comments[comments.length - 1]["orderKey"] });
     console.log(commentsPage2);
+
+    let simplifiedHot = await NineGag.getType({ type: "hot", simplified: true });
+    console.log(simplifiedHot["posts"]);
 })();

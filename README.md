@@ -27,11 +27,15 @@ const NineGag = require("9gag.js")
 ```
 
 ## Methods
-``` getType({ type = "hot", cursor = "" }) ```
-- Returns a Promise. ```type``` can be "hot", "trending" or "fresh", ```cursor``` value is found in the cursor value of the returned results.
+``` getType({ type = "hot", cursor = "", simplified = false }) ```
 
-```getComments({ id = "", orderKey = "" })```
-- Returns a Promise.  ```id``` is the post unique id. ```orderKey``` allows pagination where the value can be found in the ```orderKey``` of each comment result.
+``` Returns { posts: [...], cursor: "..." } ```
+- Returns an object with an array of posts and a cursor. ```type``` can be "hot", "trending" or "fresh", ```cursor``` value is found in the cursor value of the returned results. ```simplified = true``` returns only necessary values.
+
+```getComments({ id = "", orderKey = "", simplified = false  })```
+
+``` Returns [...] ```
+- Returns an array of comments.  ```id``` is the post unique id. ```orderKey``` allows pagination where the value can be found in the ```orderKey``` of each comment result. ```simplified = true``` returns only necessary values.
 
 ## License
 MIT - Shaun (2019)

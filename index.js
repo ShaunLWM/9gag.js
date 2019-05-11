@@ -34,7 +34,7 @@ let self = module.exports = {
             cursor: json["data"]["nextCursor"]
         };
     },
-    async getComments({ id = "", orderKey = "" }) {
+    async getComments({ id = "", orderKey = "", simplified = false }) {
         let url = `https://comment-cdn.9gag.com/v1/cacheable/comment-list.json?appId=a_dd8f2b7d304a10edaf6f29517ea0ca4100a43d1b&url=http:%2F%2F9gag.com%2Fgag%2F${id}&count=30&order=score&origin=https:%2F%2F9gag.com`
         if (orderKey.length > 0) {
             url += `&ref=${orderKey}`;
@@ -46,6 +46,9 @@ let self = module.exports = {
             throw new Error("Request failed.");
         }
 
-        return json["payload"]["comments"];
+        return (!simplified) ? json["payload"]["comments"] : json["payload"]["comments"].map(c => {
+            let { commentId, parent, user, text, timestamp, type, orderKey, likeCount, dislikeCount, childrenTotal, children } = c;
+            return { commentId, parent, user, text, timestamp, type, orderKey, likeCount, dislikeCount, childrenTotal, children };
+        });
     }
-}
+};

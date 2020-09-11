@@ -6,7 +6,7 @@
   "author": "ShaunLWM",
   "license": "MIT",
   "dependencies": {
-    "node-fetch": "^2.5.0"
+    "node-fetch": "^2.6.1"
   },
   "keywords": [
     "9gag",
